@@ -1,5 +1,5 @@
 fn main() {
-    let a = 1234;
+    let a = 101;
 
     {
         let a = a * 3;
