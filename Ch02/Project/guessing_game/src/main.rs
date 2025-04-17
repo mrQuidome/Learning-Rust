@@ -14,7 +14,7 @@ fn main() {
     loop {
         println!("");
         print!("What is your guess? ");
-        io::stdout().flush().ok();
+        io::stdout().flush().ok(); // Needed when using a print! and not a println! before a read_line
 
         let mut guess = String::new();
         io::stdin().read_line(&mut guess)

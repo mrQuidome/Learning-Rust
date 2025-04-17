@@ -2,7 +2,7 @@ fn main() {
     let a = 5 + 10;
     println!("{}", a);
 
-    let b = 3.14 * 3 as f64;
+    let b = 3.14 * 3.0;
     println!("{}", b);
 
     let c = true && false;
