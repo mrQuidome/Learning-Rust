@@ -1,4 +1,4 @@
-// You cannot use the array after the loop because it is consumed since & is not used.
+// You cannot use the array after the loop because it is consumed since & or &mut is not used.
 fn main() {
     let numbers = [
         String::from("one"),

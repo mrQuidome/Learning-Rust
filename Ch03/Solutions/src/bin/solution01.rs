@@ -1,6 +1,6 @@
 // the integer is put on thge stack, it is fixed size
 // the string is put on the heap, it has a variable size
-fn get_parameters(n: i32, s: String) {
+fn get_parameters(_n: i32, _s: String) {
 
 }
 

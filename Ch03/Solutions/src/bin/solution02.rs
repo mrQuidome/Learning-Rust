@@ -6,8 +6,9 @@
 fn take_ownership(s: String) {
     println!("{s}");
 }
+
 fn main() {
-    let s = String::from("test solution 2");
+    let s = String::from("Exercise 2");
     take_ownership(s);
     // println!("{s}"); -> will not compile
 }

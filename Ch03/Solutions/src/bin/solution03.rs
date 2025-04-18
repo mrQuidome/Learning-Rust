@@ -8,6 +8,7 @@
 fn take_ownership(p: i32) {
     println!("{p}");
 }
+
 fn main() {
     let n = 3;
     take_ownership(n);
