@@ -6,8 +6,11 @@ enum Shape {
 impl Shape {
     fn area(&self) -> f64 {
         match self {
-            Shape::Circle(radius) => std::f64::consts::PI * radius * radius,  // Area of a circle: πr²
-            Shape::Rectangle(width, height) => width * height,                // Area of a rectangle: width * height
+            // Area of a circle: πr²
+            Shape::Circle(radius) => std::f64::consts::PI * radius * radius,
+
+            // Area of a rectangle: width * height
+            Shape::Rectangle(width, height) => width * height,
         }
     }
 }

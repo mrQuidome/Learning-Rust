@@ -3,9 +3,8 @@ struct Counter {
 }
 
 impl Counter {
-    fn reset(&mut self) {
-        println!("Resetting counter from {} to 0", self.count);
-        self.count = 0;
+    fn print_and_consume(self) {
+        println!("print and consume: {}", self.count);
     }
 
     fn get_count(&self) -> i32 {
@@ -28,7 +27,5 @@ fn main() {
     let current_count = counter.get_count();
     println!("{}", current_count);
 
-    counter.reset();
-
-    println!("{}", counter.get_count());
+    counter.print_and_consume();
 }

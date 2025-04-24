@@ -14,5 +14,5 @@ impl Point {
 }
 
 fn main() {
-    let mut _p1 = Point::new(2, 3);
+    let mut p1 = Point::new(2, 3);
 }

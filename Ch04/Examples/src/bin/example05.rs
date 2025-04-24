@@ -14,14 +14,8 @@ impl Point {
 }
 
 fn main() {
-    let p1 = Point{
-        x: 2,
-        y: 3,
-    };
-    let offset = Point{
-        x: 10,
-        y: 12,
-    };
+    let p1 = Point { x: 2, y: 3 };
+    let offset = Point { x: 10, y: 12 };
     let p1 = p1.translate(&offset);
     println!("The point is: {:?}", p1);
 }

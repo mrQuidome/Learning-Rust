@@ -14,5 +14,5 @@ impl Point {
 }
 
 fn main() {
-    let _p1 = Point::new(2, 3);
+    let p1 = Point::new(2, 3);
 }
