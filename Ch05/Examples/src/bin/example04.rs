@@ -14,9 +14,9 @@ impl Describable for Book {
     }
 }
 
-struct Chair;
+struct Author;
 
-impl Describable for Chair {
+impl Describable for Author {
     // Uses the default implementation of describe
 }
 

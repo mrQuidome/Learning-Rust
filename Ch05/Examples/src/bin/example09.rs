@@ -16,8 +16,8 @@ impl std::ops::Add for Point {
 }
 
 fn main() {
-    let p1 = Point { x: 1, y: 2 };
-    let p2 = Point { x: 3, y: 4 };
+    let p1 = Point { x: 2, y: 3 };
+    let p2 = Point { x: 5, y: 7 };
 
     let p3 = p1 + p2;
 
