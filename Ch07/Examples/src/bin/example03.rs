@@ -2,10 +2,11 @@ use std::fs::File;
 use std::io::ErrorKind;
 
 fn main() {
-    let file_result = File::open("example.txt");
+    let file_path = "example.txt";
+    let file_result = File::open(file_path);
 
     match file_result {
-        Ok(file) => println!("File opened successfully: {:?}", file),
+        Ok(_) => println!("File opened successfully: {:?}", file_path),
         Err(ref error) if error.kind() == ErrorKind::NotFound => {
             println!("File not found, creating a new file...");
             match File::create("example.txt") {
