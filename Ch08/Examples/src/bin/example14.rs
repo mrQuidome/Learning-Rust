@@ -1,6 +1,6 @@
 fn main() {
     let mut inefficient = String::new();
-    for i in 0..5 {
+    for _ in 0..5 {
         inefficient.push_str("hello ");
     }
     println!("Inefficient String: {}", inefficient);

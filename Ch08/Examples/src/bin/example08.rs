@@ -2,6 +2,7 @@ use std::str::FromStr;
 use std::num::ParseIntError;
 
 #[derive(Debug)]
+#[allow(dead_code)]
 struct Point {
     x: i32,
     y: i32,

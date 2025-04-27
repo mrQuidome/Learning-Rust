@@ -6,4 +6,5 @@ fn main() {
     println!("{}", s);
 
     let slice = &s[0..3];
+    println!("{}", slice);
 }
