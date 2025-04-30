@@ -1,12 +1,13 @@
-use std::fs::File;
-use std::io::{BufWriter, Write};
+use std::path::{Path, PathBuf};
 
-fn main() -> std::io::Result<()> {
-    let file = File::create("example_test2.txt")?;
-    let mut writer = BufWriter::new(file);
+fn main() {
+    let path = Path::new("Ch10/Examples");
+    let file_name = "example.txt";
 
-    writer.write_all(b"This is a buffered write.\n")?;
-    writer.flush()?;
+    let full_path: PathBuf = path.join(file_name);
+    println!("Full path: {:?}", full_path);
 
-    Ok(())
+    if let Some(parent) = full_path.parent() {
+        println!("Parent directory: {:?}", parent);
+    }
 }

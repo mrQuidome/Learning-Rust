@@ -1,14 +1,12 @@
-use std::fs::OpenOptions;
-use std::io::Write;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
 fn main() -> std::io::Result<()> {
-    let mut file = OpenOptions::new()
-        .append(true) // Open the file in append mode
-        .create(true) // Create the file if it doesn't exist
-        .open("example.bin")?;
+    let file = File::create("example_test2.txt")?;
+    let mut writer = BufWriter::new(file);
 
-    let data = [0xDE, 0xAD, 0xBE, 0xEF]; // Binary data to append
-    file.write_all(&data)?; // Append the data to the file
+    writer.write_all(b"This is a buffered write.\n")?;
+    writer.flush()?;
 
     Ok(())
 }

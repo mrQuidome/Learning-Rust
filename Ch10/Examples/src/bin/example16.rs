@@ -1,16 +1,22 @@
-use std::fs::File;
-use std::io::{self, Read};
+use std::net::{TcpListener, TcpStream};
+use std::io::{Read, Write};
 
-fn read_file_content(file_path: &str) -> io::Result<String> {
-    let mut file = File::open(file_path)?;
-    let mut contents = String::new();
-    file.read_to_string(&mut contents)?;
-    Ok(contents)
+fn handle_client(mut stream: TcpStream) -> std::io::Result<()> {
+    let mut buffer = [0; 512];
+    let bytes_read = stream.read(&mut buffer)?;
+    println!("Received: {}", String::from_utf8_lossy(&buffer[..bytes_read]));
+    stream.write_all(b"Hello, client!")?;
+    Ok(())
 }
 
-fn main() {
-    match read_file_content("example.txt") {
-        Ok(content) => println!("File content:\n{}", content),
-        Err(error) => println!("Failed to read file: {}", error),
+fn main() -> std::io::Result<()> {
+    let listener = TcpListener::bind("127.0.0.1:7878")?;
+    println!("Server is listening on port 7878");
+
+    for stream in listener.incoming() {
+        let stream = stream?;
+        handle_client(stream)?;
     }
+
+    Ok(())
 }

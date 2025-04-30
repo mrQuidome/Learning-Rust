@@ -1,16 +1,17 @@
-use std::fs;
+use std::fs::metadata;
 use std::io;
-use std::env;
 
 fn main() -> io::Result<()> {
-    let working_dir = env::current_dir()?;
-    println!("Current working directory: {:?}", working_dir);
+    let file_metadata = metadata("example.txt")?;
 
-    for entry in fs::read_dir(working_dir)? {
-        let entry = entry?;
-        let file_name = entry.file_name();
-        println!("File or dir: {:?}", file_name);
+    if file_metadata.permissions().readonly() {
+        println!("The file is read-only.");
+    } else {
+        println!("The file is writable.");
     }
+
+    let file_size = file_metadata.len();
+    println!("The file size is {} bytes.", file_size);
 
     Ok(())
 }

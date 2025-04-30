@@ -1,13 +1,16 @@
-use std::path::{Path, PathBuf};
+use std::fs;
+use std::io;
+use std::env;
 
-fn main() {
-    let path = Path::new("Ch10/Examples");
-    let file_name = "example.txt";
+fn main() -> io::Result<()> {
+    let working_dir = env::current_dir()?;
+    println!("Current working directory: {:?}", working_dir);
 
-    let full_path: PathBuf = path.join(file_name);
-    println!("Full path: {:?}", full_path);
-
-    if let Some(parent) = full_path.parent() {
-        println!("Parent directory: {:?}", parent);
+    for entry in fs::read_dir(working_dir)? {
+        let entry = entry?;
+        let file_name = entry.file_name();
+        println!("File or dir: {:?}", file_name);
     }
+
+    Ok(())
 }

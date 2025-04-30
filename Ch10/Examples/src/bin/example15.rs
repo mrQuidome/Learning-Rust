@@ -1,17 +1,16 @@
-use std::fs::metadata;
-use std::io;
+use std::fs::File;
+use std::io::{self, Read};
 
-fn main() -> io::Result<()> {
-    let file_metadata = metadata("example.txt")?;
+fn read_file_content(file_path: &str) -> io::Result<String> {
+    let mut file = File::open(file_path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    Ok(contents)
+}
 
-    if file_metadata.permissions().readonly() {
-        println!("The file is read-only.");
-    } else {
-        println!("The file is writable.");
+fn main() {
+    match read_file_content("example.txt") {
+        Ok(content) => println!("File content:\n{}", content),
+        Err(error) => println!("Failed to read file: {}", error),
     }
-
-    let file_size = file_metadata.len();
-    println!("The file size is {} bytes.", file_size);
-
-    Ok(())
 }

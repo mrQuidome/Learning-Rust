@@ -1,19 +1,16 @@
-use std::io::{BufRead, BufReader, Write};
-use std::net::TcpStream;
+use std::net::UdpSocket;
 
 fn main() -> std::io::Result<()> {
-    let mut stream = TcpStream::connect("127.0.0.1:7878")?;
-    let mut reader = BufReader::new(stream.try_clone()?);
+    let socket = UdpSocket::bind("127.0.0.1:7878")?;
+    println!("UDP server listening on 127.0.0.1:7878");
 
-    let requests = ["Hello, server!", "Another request", "Final message"];
-    for request in &requests {
-        stream.write_all(request.as_bytes())?;
-        stream.write_all(b"\n")?;
+    let mut buf = [0; 1024];
+    loop {
+        let (bytes_received, src) = socket.recv_from(&mut buf)?;
+        let msg = String::from_utf8_lossy(&buf[..bytes_received]);
+        println!("Received '{}' from {}", msg, src);
 
-        let mut response = String::new();
-        reader.read_line(&mut response)?;
-        println!("Server replied: {}", response.trim());
+        let response = format!("Hello, {}!", src);
+        socket.send_to(response.as_bytes(), src)?;
     }
-
-    Ok(())
 }

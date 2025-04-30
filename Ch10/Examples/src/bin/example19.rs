@@ -1,36 +1,18 @@
-use std::net::{TcpListener, TcpStream};
 use std::io::{BufRead, BufReader, Write};
-
-fn handle_client(stream: TcpStream) -> std::io::Result<()> {
-    let mut reader = BufReader::new(stream.try_clone()?);
-    let mut stream = stream;
-
-    loop {
-        let mut message = String::new();
-        let bytes_read = reader.read_line(&mut message)?;
-        if bytes_read == 0 {
-            println!("Client disconnected");
-            break;
-        }
-        println!("Received: {}", message.trim());
-
-        let response = format!("Server received -> {}\n", message.trim());
-        stream.write_all(response.as_bytes())?;
-        stream.flush()?;
-    }
-
-    Ok(())
-}
+use std::net::TcpStream;
 
 fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:7878")?;
-    println!("Server is listening on port 7878");
+    let mut stream = TcpStream::connect("127.0.0.1:7878")?;
+    let mut reader = BufReader::new(stream.try_clone()?);
 
-    for stream in listener.incoming() {
-        if let Ok(stream) = stream {
-            handle_client(stream).ok();
-        }
-        break;
+    let requests = ["Hello, server!", "Another request", "Final message"];
+    for request in &requests {
+        stream.write_all(request.as_bytes())?;
+        stream.write_all(b"\n")?;
+
+        let mut response = String::new();
+        reader.read_line(&mut response)?;
+        println!("Server replied: {}", response.trim());
     }
 
     Ok(())

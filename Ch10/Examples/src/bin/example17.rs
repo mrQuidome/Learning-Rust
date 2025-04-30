@@ -1,22 +1,13 @@
-use std::net::{TcpListener, TcpStream};
+use std::net::TcpStream;
 use std::io::{Read, Write};
 
-fn handle_client(mut stream: TcpStream) -> std::io::Result<()> {
+fn main() -> std::io::Result<()> {
+    let mut stream = TcpStream::connect("127.0.0.1:7878")?;
+    stream.write_all(b"Hello, server!")?;
+
     let mut buffer = [0; 512];
     let bytes_read = stream.read(&mut buffer)?;
-    println!("Received: {}", String::from_utf8_lossy(&buffer[..bytes_read]));
-    stream.write_all(b"Hello, client!")?;
-    Ok(())
-}
-
-fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:7878")?;
-    println!("Server is listening on port 7878");
-
-    for stream in listener.incoming() {
-        let stream = stream?;
-        handle_client(stream)?;
-    }
+    println!("Server replied: {}", String::from_utf8_lossy(&buffer[..bytes_read]));
 
     Ok(())
 }
