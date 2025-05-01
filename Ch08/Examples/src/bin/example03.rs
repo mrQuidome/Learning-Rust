@@ -1,4 +1,4 @@
 fn main() {
-    let s = "Hello, Rust!".to_string();
+    let s = "Hola".to_string();
     println!("{}", s);
 }
