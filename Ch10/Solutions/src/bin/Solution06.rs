@@ -1,19 +1,19 @@
-use std::fs;
+use std::path::PathBuf;
 
-fn main() -> std::io::Result<()> {
-    // Specify the root directory
-    let root_dir = "/";
+fn main() {
+    // Define the base path and file name
+    let base_path = PathBuf::from("/home/user/documents");
+    let file_name = "report.txt";
 
-    // Read the directory entries
-    let entries = fs::read_dir(root_dir)?;
+    // Append the file name to the base path
+    let full_path = base_path.join(file_name);
 
-    // Iterate over the entries and print each one
-    println!("Contents of root directory ({root_dir}):");
-    for entry in entries {
-        let entry = entry?;
-        let path = entry.path();
-        println!("{}", path.display());
+    // Print the full path
+    println!("Full path: {}", full_path.display());
+
+    // Print the parent directory
+    match full_path.parent() {
+        Some(parent) => println!("Parent directory: {}", parent.display()),
+        None => println!("The full path has no parent directory."),
     }
-
-    Ok(())
 }

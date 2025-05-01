@@ -1,19 +1,30 @@
-use std::path::PathBuf;
+use std::fs::File;
+use std::io::Read;
+
+fn read_file(file_path: &str) {
+    match File::open(file_path) {
+        Ok(mut file) => {
+            let mut content = String::new();
+            if let Err(err) = file.read_to_string(&mut content) {
+                println!("Failed to read the file '{}': {}", file_path, err);
+            } else {
+                println!("Contents of '{}':\n{}", file_path, content);
+            }
+        }
+        Err(err) => {
+            println!("Error opening file '{}': {}", file_path, err);
+        }
+    }
+}
 
 fn main() {
-    // Define the base path and file name
-    let base_path = PathBuf::from("/home/user/documents");
-    let file_name = "report.txt";
+    // Test with an existing file
+    let existing_file = "input10.txt";
+    println!("Testing with existing file '{}':", existing_file);
+    read_file(existing_file);
 
-    // Append the file name to the base path
-    let full_path = base_path.join(file_name);
-
-    // Print the full path
-    println!("Full path: {}", full_path.display());
-
-    // Print the parent directory
-    match full_path.parent() {
-        Some(parent) => println!("Parent directory: {}", parent.display()),
-        None => println!("The full path has no parent directory."),
-    }
+    // Test with a non-existent file
+    let non_existent_file = "non_existent.txt";
+    println!("\nTesting with non-existent file '{}':", non_existent_file);
+    read_file(non_existent_file);
 }

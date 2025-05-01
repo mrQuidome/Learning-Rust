@@ -1,30 +1,30 @@
-use std::net::UdpSocket;
-use std::io::{self, Write};
+use std::io::{self, BufRead, BufReader, Write};
+use std::net::TcpStream;
 
 fn main() -> io::Result<()> {
-    // Bind the client to any available port
-    let socket = UdpSocket::bind("127.0.0.1:0")?;
-    println!("Client bound to {}", socket.local_addr()?);
-
     // Connect to the server
-    socket.connect("127.0.0.1:8080")?;
+    let server_address = "127.0.0.1:8080";
+    let mut stream = TcpStream::connect(server_address)?;
+    println!("Connected to server at {}", server_address);
 
-    // Prompt the user for a message
-    print!("Enter a message to send: ");
-    io::stdout().flush()?;
+    // Get a message from the user
+    print!("Enter a message: ");
+    io::stdout().flush()?; // Ensure the prompt is displayed immediately
+
     let mut message = String::new();
     io::stdin().read_line(&mut message)?;
+    let message = message.trim(); // Remove any trailing newline
 
     // Send the message to the server
-    socket.send(message.as_bytes())?;
-    println!("Sent: {}", message.trim());
+    stream.write_all(message.as_bytes())?;
+    stream.write_all(b"\n")?; // Add a newline to mark the end of the message
+    println!("Message sent: {}", message);
 
-    // Receive the server's response
-    let mut buffer = [0; 1024];
-    let bytes_received = socket.recv(&mut buffer)?;
-    let response = String::from_utf8_lossy(&buffer[..bytes_received]);
-
-    println!("Server replied: {}", response);
+    // Read the server's response
+    let mut reader = BufReader::new(&stream);
+    let mut response = String::new();
+    reader.read_line(&mut response)?;
+    println!("Server replied: {}", response.trim());
 
     Ok(())
 }

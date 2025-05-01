@@ -23,8 +23,8 @@ fn main() {
 }
 
 fn register_user() {
-    let username = get_user_input("Enter a username:");
-    let password = get_user_input("Enter a password:");
+    let username = get_user_input("Enter a username: ");
+    let password = get_user_input("Enter a password: ");
 
     // Validate username and password
     if !validate_username(&username) {
