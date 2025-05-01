@@ -5,5 +5,5 @@ fn main() {
     println!("Sum: {}", sum);
 
     let product = numbers.into_iter().reduce(|acc, x| acc * x);
-    println!("Product: {:?}", sum);
+    println!("Product: {:?}", product);
 }

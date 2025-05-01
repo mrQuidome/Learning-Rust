@@ -1,23 +1,27 @@
-fn parse_numbers(input: Vec<&str>) -> Result<Vec<i32>, String> {
-    input
-        .into_iter()
-        .map(|s| {
-            s.parse::<i32>()
-                .map_err(|_| format!("Failed to parse '{}'", s))
-        })
-        .collect()
+struct Fibonacci {
+    a: usize,
+    b: usize,
+}
+
+impl Fibonacci {
+    fn new() -> Self {
+        Fibonacci { a: 0, b: 1 }
+    }
+}
+
+impl Iterator for Fibonacci {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next_value = self.a;
+        self.a = self.b;
+        self.b += next_value;
+        Some(next_value)
+    }
 }
 
 fn main() {
-    let data = vec!["42", "93", "invalid", "17"];
-/*    match parse_numbers(data) {
-        Ok(numbers) => println!("Parsed numbers: {:?}", numbers),
-        Err(err) => println!("Error: {}", err),
-    }*/
-
-    let x:Result<Vec<i32>, String> = data
-        .into_iter()
-        .map(|s| s.parse::<i32>())
-        .collect();
-    println!("{:?}", x);
+    let fib = Fibonacci::new();
+    let first_ten: Vec<_> = fib.take(10).collect();
+    println!("First 10 Fibonacci numbers: {:?}", first_ten);
 }

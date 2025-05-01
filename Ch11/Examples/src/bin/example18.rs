@@ -1,15 +1,10 @@
-use std::io;
-
 fn main() {
-    println!("Enter a list of numbers separated by spaces:");
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).ok();
+    let nested = vec![vec![1, 2], vec![3, 4], vec![5]];
 
-    let sum: i32 = input
-        .trim()
-        .split_whitespace()
-        .filter_map(|s| s.parse::<i32>().ok())
-        .sum();
-
-    println!("The sum is: {}", sum);
+    let grand_total = nested
+        .into_iter()
+        .flat_map(|inner| inner.into_iter().map(|x| x * 2))
+        .sum::<i32>();
+    println!("Grand total: {}", grand_total);
 }
+

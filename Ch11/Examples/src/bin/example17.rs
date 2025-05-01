@@ -1,6 +1,9 @@
 fn main() {
     let nested = vec![vec![1, 2], vec![3, 4], vec![5]];
 
-    let flattened: Vec<_> = nested.into_iter().flat_map(|v| v).collect();
-    println!("Flattened: {:?}", flattened);
+    let grand_total = nested
+        .into_iter()
+        .flatten()
+        .sum::<i32>();
+    println!("Grand total: {}", grand_total);
 }

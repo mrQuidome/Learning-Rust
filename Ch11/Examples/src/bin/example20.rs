@@ -1,27 +1,31 @@
-struct Fibonacci {
-    a: usize,
-    b: usize,
+struct Counter {
+    current: usize,
+    max: usize,
 }
 
-impl Fibonacci {
-    fn new() -> Self {
-        Fibonacci { a: 0, b: 1 }
+impl Counter {
+    fn new(max: usize) -> Self {
+        Counter { current: 0, max }
     }
 }
 
-impl Iterator for Fibonacci {
+impl Iterator for Counter {
     type Item = usize;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let next_value = self.a;
-        self.a = self.b;
-        self.b += next_value;
-        Some(next_value)
+        if self.current < self.max {
+            let result = self.current;
+            self.current += 1;
+            Some(result)
+        } else {
+            None
+        }
     }
 }
 
 fn main() {
-    let fib = Fibonacci::new();
-    let first_ten: Vec<_> = fib.take(10).collect();
-    println!("First 10 Fibonacci numbers: {:?}", first_ten);
+    let counter = Counter::new(5);
+    for value in counter {
+        println!("{}", value); 
+    }
 }
