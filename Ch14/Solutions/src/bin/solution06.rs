@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 struct Holder<'a> {
     data: &'a str,
 }

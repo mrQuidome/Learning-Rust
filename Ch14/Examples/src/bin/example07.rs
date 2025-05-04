@@ -8,7 +8,7 @@ fn main() {
     let to_unpacked;
     let message: Message;
     {
-        let from = &String::from("word");
+        let from = &String::from("world");
         {
             
             let to = &String::from("hello");
