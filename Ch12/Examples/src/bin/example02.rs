@@ -9,7 +9,7 @@ impl Drop for Resource {
 }
 
 fn main() {
-    let res1 = Resource { name: String::from("File1") };
-    let res2 = Resource { name: String::from("Database Connection") };
+    let _res1 = Resource { name: String::from("File1") };
+    let _res2 = Resource { name: String::from("Database Connection") };
     println!("Resources created");
 }

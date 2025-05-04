@@ -1,6 +1,5 @@
 mod linked_list;
 
-use std::fmt::Debug;
 use linked_list::LinkedList;
 
 fn main() {
