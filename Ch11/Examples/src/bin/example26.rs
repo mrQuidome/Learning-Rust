@@ -11,7 +11,7 @@ fn main() {
         .sum::<i128>();
     let duration_collect = start_collect.elapsed();
     println!(
-        "Using `collect`: Sum of evens is {} in {:?}",
+        "Using collect: Sum of evens is {} in {:?}",
         sum_evens, duration_collect
     );
 

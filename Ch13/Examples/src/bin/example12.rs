@@ -8,7 +8,7 @@ fn main() {
     for _ in 0..5 {
         let data = Arc::clone(&data);
 
-        // `Arc<T>` is `Sync`, so it can be shared between threads safely.
+        // Arc<T> is Sync, so it can be shared between threads safely.
         let handle = thread::spawn(move || {
             println!("{}", data);
         });
