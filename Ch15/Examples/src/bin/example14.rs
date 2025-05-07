@@ -1,9 +1,20 @@
 fn main() {
-    let mut num = 10;
-    let raw = &mut num as *mut i32;
+    let raw_dangling: *const i32;
+    {
+        let x = 10;
+        raw_dangling = &x;
+        unsafe {
+            println!("raw_dangling: {:?}", *raw_dangling);
+        }
+    }
+
+    // polute the stack
+    let y1 = 100;
 
     unsafe {
-        *raw = 20;
-        println!("num: {}", num);
+        println!("raw_dangling: {:?}", *raw_dangling);
     }
+
+    // prevent optimization
+    println!("y1: {}", y1);
 }

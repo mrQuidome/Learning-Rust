@@ -1,9 +1,4 @@
 fn main() {
-    let raw_dangling: *const i32;
-    {
-        let x = 10;
-        raw_dangling = &x;
-    }
-
-    println!("raw_dangling: {:?}", raw_dangling);
+    let null_ptr: *const i32 = std::ptr::null();
+    println!("{}", null_ptr.is_null());
 }

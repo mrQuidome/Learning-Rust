@@ -1,10 +1,12 @@
 fn main() {
-    let x = 42;
+    let mut x = 42;
     let raw_const: *const i32 = &x;
-    let _raw_mut: *mut i32 = &x as *const i32 as *mut i32;
+    let raw_mut: *mut i32 = &mut x;
 
     unsafe {
-        let y = *raw_const;
-        println!("y: {}", y);
+        *raw_mut += 1;
+        println!("raw_mut: {}", *raw_mut);
+        println!("raw_const: {}", *raw_const);
     }
 }
+
