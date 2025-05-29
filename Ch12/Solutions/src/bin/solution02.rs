@@ -5,12 +5,9 @@ enum List {
 
 impl List {
     fn traverse_and_print(&self) {
-        match self {
-            List::Cons(value, next) => {
-                print!("{} ", value);
-                next.traverse_and_print();
-            }
-            List::Nil => (),
+        if let List::Cons(value, next) = self {
+            print!("{} ", value);
+            next.traverse_and_print();
         }
     }
 }
