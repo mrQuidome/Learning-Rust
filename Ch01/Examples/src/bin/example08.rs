@@ -4,5 +4,5 @@ fn main() {
         value = 10;
     }
     // compiler error
-    // println!("The delayed value is: {}", value);
+    println!("The delayed value is: {}", value);
 }

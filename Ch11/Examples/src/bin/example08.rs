@@ -10,6 +10,6 @@ fn main() {
     println!("Count: {}", count);
 
     let text = String::from("Hello");
-    let consume_text = || println!("{}", text);
+    let consume_text = move || println!("{}", text);
     consume_text();
 }

@@ -1,25 +1,20 @@
-use std::rc::Rc;
-use std::cell::Cell;
-
-struct SharedState {
-    immutable_field: String,
-    mutable_field: Cell<u32>,
-}
+use std::sync::RwLock;
 
 fn main() {
-    let shared_state = Rc::new(SharedState {
-        immutable_field: String::from("Shared State"),
-        mutable_field: Cell::new(42),
-    });
+    let lock = RwLock::new(17);
 
-    let owner1 = Rc::clone(&shared_state);
-    let owner2 = Rc::clone(&shared_state);
+    {
+        let r1 = lock.read().unwrap();
+        let r2 = lock.read().unwrap();
+        println!("Read lock 1: {}", r1);
+        println!("Read lock 2: {}", r2);
+    }
 
-    println!("Owner1: Immutable: {}, Mutable: {}", owner1.immutable_field, owner1.mutable_field.get());
+    {
+        let mut w = lock.write().unwrap();
+        *w += 1;
+        println!("Write lock: {}", w);
+    }
 
-    owner2.mutable_field.set(84);
-    println!("Owner2 updated the mutable field.");
-
-    println!("Owner1: Immutable: {}, Mutable: {}", owner1.immutable_field, owner1.mutable_field.get());
-    println!("Owner2: Immutable: {}, Mutable: {}", owner2.immutable_field, owner2.mutable_field.get());
+    println!("Updated value: {}", lock.read().unwrap());
 }
