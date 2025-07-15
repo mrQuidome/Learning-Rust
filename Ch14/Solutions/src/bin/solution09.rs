@@ -1,4 +1,5 @@
 // You cannot return 'second' here because it has a different and potentially shorter lifetime
+// The way to make this compile is give both references the same lifetime 'a
 fn compare_lengths<'a, 'b>(first: &'a str, second: &'b str) -> &'a str {
     if first.len() > second.len() {
         first

@@ -13,6 +13,8 @@ fn main() {
         handles.push(handle);
     }
 
+    drop(tx);
+
     for handle in handles {
         handle.join().unwrap();
     }

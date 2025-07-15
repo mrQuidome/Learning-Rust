@@ -1,5 +1,6 @@
 use std::sync::{Arc, Mutex};
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     let resource1 = Arc::new(Mutex::new(()));
@@ -10,6 +11,7 @@ fn main() {
 
     let handle1 = thread::spawn(move || {
         let _lock1 = r1.lock().unwrap();
+        thread::sleep(Duration::from_millis(100));
         let _lock2 = r2.lock().unwrap();
         println!("Thread 1 acquired both locks");
     });
@@ -19,6 +21,7 @@ fn main() {
 
     let handle2 = thread::spawn(move || {
         let _lock1 = r1.lock().unwrap();
+        thread::sleep(Duration::from_millis(100));
         let _lock2 = r2.lock().unwrap();
         println!("Thread 2 acquired both locks");
     });

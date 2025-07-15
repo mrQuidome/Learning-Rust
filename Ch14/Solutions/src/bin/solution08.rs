@@ -1,13 +1,9 @@
-struct Holder {
-    data: &'static str,
-}
-
 struct StaticHolder {
     data: &'static str,
 }
 
 fn main() {
-    let holder = Holder {
+    let holder = StaticHolder {
         data: "static text"
     };
     println!("{}", holder.data);
